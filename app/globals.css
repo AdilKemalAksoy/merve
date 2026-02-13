@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,15 +12,173 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── Heart: grow from zero ─── */
+@keyframes heartGrow {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.4);
+    filter: drop-shadow(0 0 10px rgba(255, 45, 85, 0.4));
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(1.2);
+    filter: drop-shadow(0 0 40px rgba(255, 45, 85, 0.7));
+  }
+
+  85% {
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: drop-shadow(0 0 25px rgba(255, 45, 85, 0.6)) drop-shadow(0 0 60px rgba(255, 45, 85, 0.3));
+  }
+}
+
+/* ─── Heart: continuous pulse ─── */
+@keyframes heartPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 45, 85, 0.5)) drop-shadow(0 0 60px rgba(255, 45, 85, 0.2));
+  }
+
+  50% {
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 35px rgba(255, 45, 85, 0.8)) drop-shadow(0 0 80px rgba(255, 45, 85, 0.4));
+  }
+}
+
+/* ─── Ring burst behind heart ─── */
+@keyframes ringBurst {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.3);
+    border-width: 4px;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3);
+    border-width: 0px;
+  }
+}
+
+/* ─── Particles: radial explosion ─── */
+@keyframes particleExplode {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(var(--px, 0), var(--py, 0)) scale(1);
+  }
+
+  60% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(calc(var(--px, 0) * 4), calc(var(--py, 0) * 4)) scale(0);
+  }
+}
+
+/* ─── Sparkle twinkle ─── */
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--sx, 0), var(--sy, 0)) scale(0) rotate(0deg);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(var(--sx, 0), var(--sy, 0)) scale(1) rotate(90deg);
+  }
+
+  80% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) translate(var(--sx, 0), var(--sy, 0)) scale(0.5) rotate(180deg);
+  }
+}
+
+/* ─── Flash behind heart on appear ─── */
+@keyframes flashBurst {
+  0% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(4);
+  }
+}
+
+.heart-grow {
+  animation: heartGrow 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.heart-pulse {
+  animation: heartPulse 1.8s ease-in-out infinite;
+}
+
+.ring-burst {
+  animation: ringBurst 1.2s ease-out forwards;
+}
+
+.ring-burst-delayed {
+  animation: ringBurst 1.2s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.flash-burst {
+  animation: flashBurst 0.8s ease-out forwards;
+}
+
+.particle {
+  animation: particleExplode 1.4s ease-out forwards;
+}
+
+.sparkle-particle {
+  animation: sparkle 2s ease-in-out forwards;
+}
+
+/* ─── Shimmer text ─── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg,
+      #fff 0%,
+      #ffc0cb 25%,
+      #ff6b81 50%,
+      #ffc0cb 75%,
+      #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
 }
